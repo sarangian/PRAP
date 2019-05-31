@@ -1,0 +1,88 @@
+#you can modify the parameters of the software
+
+==================================================================================
+Settings for gene identification modules:
+----------------------------------------------------------------------------------
+#please use "/" to seperate the directory! eg:usr/local/bin
+[blast+=usr/local/bin]
+#blast directory contain blastn, blastp and makeblastdb
+[identity_n=70]
+[query_coverage_n=0.70]
+[identity_p=98]
+[query_coverage_p=0.90]
+#settings for kmer
+[k_value=25]
+#k value must be an odd number
+[kernel=2]
+[depth=20]
+[area_score=100]
+[kmer_coverage=0.90]
+==================================================================================
+
+==================================================================================
+Settings for graphs in analysis modules:
+----------------------------------------------------------------------------------
+(1.1)ar distribution graph
+[page_length1=15]
+[page_width1=15]
+[dpi1=300]
+[fontsize1=30]
+[fonttype1=Times New Roman]
+----------------------------------------------------------------------------------
+(1.2)ar genomes size graph
+[fit_coverage=0.8]
+[fit_model=power_law]
+#fitting models: False, power_law, polyfit, pangp
+[fit_order=6]
+#the order of polyfit, being applied when fitting model is "polyfit"
+[page_length2=20]
+[page_width2=15]
+[dpi2=300]
+[fontsize2=30]
+[fonttype2=Times New Roman]
+----------------------------------------------------------------------------------
+(2.1)stacked bar graph
+[page_length0=20]
+[page_width0=15]
+[dpi0=300]
+[fontsize0=20]
+[genomelabel_fsize0=auto]
+[fonttype0=Times New Roman]
+----------------------------------------------------------------------------------
+(2.2)ar gene cluster graph
+[row_cluster3=True]
+[column_cluster3=True]
+[cluster_method3=average]
+#Methods of cluster: singel, complete, average, weighted, centroid, median, ward
+[page_length3=15]
+[page_width3=15]
+[dpi3=300]
+[fontsize3=15]
+[genomelabel_fsize3=auto]
+[fonttype3=Times New Roman]
+----------------------------------------------------------------------------------
+(2.3)ar gene correlation graph
+[page_length4=20]
+[page_width4=20]
+[dpi4=300]
+[fontsize4=40]
+[genomelabel_fsize4=auto]
+[fonttype4=Times New Roman]
+[dot_size4=30]
+----------------------------------------------------------------------------------
+(3)antibiotic associated genes cluster graph 
+[show_phenotype=False]
+[column_name=detail]
+#The name for column: detail (detail gene names), allele (name of gene allele)
+[draw_clustemap=True]
+[row_cluster5=True]
+[column_cluster5=True]
+[cluster_method5=average]
+#The method of cluster: singel, complete, average, weighted, centroid, median, ward
+[page_length5=15]
+[page_width5=15]
+[dpi5=300]
+[fontsize5=20]
+[genomelabel_fsize5=auto]
+[fonttype5=Times New Roman]
+==================================================================================
