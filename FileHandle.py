@@ -29,7 +29,12 @@ def inpd_get(directory="",file_categories=""):
 		file_directory = (input("please input the %s directory: " % file_categories)).replace("\\","/")+"/"
 	#if directory is input, return the input directory
 	else:
-		file_directory = directory
+		if directory.endswith("\\"):
+			file_directory = directory.replace("\\","/")
+		elif not directory.endswith("/"):
+			file_directory = directory+"/"
+		else:
+			file_directory = directory
 	return file_directory
 
 #create a new directory if the directory not exists

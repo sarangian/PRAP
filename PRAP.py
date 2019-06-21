@@ -10,8 +10,18 @@ import PanAccess
 
 install = (os.getcwd()+"/").replace("\\","/")
 file = ""
+choose = ""
+directory = ""
 
-print("""
+cmds = sys.argv
+try:
+	if cmds[1] == "-m" and cmds[3] == "-indir" and cmds[5] == "-outdir":
+		choose = cmds[2].upper()
+		directory = cmds[4]
+		output_directory = cmds[6]
+	elif cmds[1] == "-h":
+		print(
+"""
 ==================================================================
 =================Pan Resistome Analysis Pipeline==================
 ==================================================================
@@ -83,24 +93,30 @@ RUN SEPARATE MODULE:
 	  antibiotics in ResFinder database
 ==================================================================
 """)
+		sys.exit(0)
+	else:
+		print("Error: please use 'python PRAP.py -m modules -indir input_directory -outdir output_directory' ")
+		sys.exit(0)
+except:
+	print("Error: please use 'python PRAP.py -m modules -dir input_directory -outdir output_directory' ")
+	sys.exit(0)
 
-choose = input("Your choice: ").upper().replace(" ","")
 ar_module = ["R1","G1-1","G1-2","N1","P1"]
 res_module = ["R2","G2-1","G2-2","N2","P2"]
 if choose in ar_module or choose in res_module:
 	if choose in ar_module:
 		if choose == "R1":
-			file = ArKmer.main(install,"")
+			file = ArKmer.main(install,directory,output_directory)
 		elif choose == "G1-1":
-			file = CDSex.main("")
-			ArBlastn.main(install,file)
+			file = CDSex.main(directory)
+			file = ArBlastn.main(install,file,output_directory)
 		elif choose == "G1-2":
-			file = CDSex.main("")
-			ArBlastp.main(install,file)
+			file = CDSex.main(directory)
+			file = ArBlastp.main(install,file,output_directory)
 		elif choose == "N1":
-			file = ArBlastn.main(install,"")
+			file = ArBlastn.main(install,directory,output_directory)
 		elif choose == "P1":
-			file = ArBlastp.main(install,"")
+			file = ArBlastp.main(install,directory,output_directory)
 		else:
 			print("Please input the write number!!!")
 			sys.exit(0)
@@ -109,17 +125,17 @@ if choose in ar_module or choose in res_module:
 		ArMatrix.main(install,file)
 	else:
 		if choose == "R2":
-			file = ResKmer.main(install,"")
+			file = ResKmer.main(install,directory,output_directory)
 		elif choose == "G2-1":
-			file = CDSex.main("")
-			ResBlastn.main(install,file)
+			file = CDSex.main(directory)
+			file = ResBlastn.main(install,file,output_directory)
 		elif choose == "G2-2":
-			file = CDSex.main("")
-			ResBlastp.main(install,file)
+			file = CDSex.main(directory)
+			file = ResBlastp.main(install,file,output_directory)
 		elif choose == "N2":
-			file = ResBlastn.main(install,"")
+			file = ResBlastn.main(install,directory,output_directory)
 		elif choose == "P2":
-			file = ResBlastp.main(install,"")
+			file = ResBlastp.main(install,directory,output_directory)
 		else:
 			print("Please input the write number!!!")
 			sys.exit(0)
@@ -128,29 +144,29 @@ if choose in ar_module or choose in res_module:
 		ResMatrix.main(install,file)
 
 elif choose == "A":
-	CDSex.main("")
+	CDSex.main(directory)
 elif choose == "B-1":
-	ArKmer.main(install,"")
+	ArKmer.main(install,directory)
 elif choose == "B-2":
-	ArBlastn.main(install,"")
+	ArBlastn.main(install,directory)
 elif choose == "B-3":
-	ArBlastp.main(install,"")
+	ArBlastp.main(install,directory)
 elif choose == "C-1":
-	ResKmer.main(install,"")
+	ResKmer.main(install,directory)
 elif choose == "C-2":
-	ResBlastn.main(install,"")
+	ResBlastn.main(install,directory)
 elif choose == "C-3":
-	ResBlastp.main(install,"")
+	ResBlastp.main(install,directory)
 elif choose == "D":
-	Pangenome.main(install,"")
+	Pangenome.main(install,directory)
 elif choose == "E":
-	PanAccess.main(install,"")
+	PanAccess.main(install,directory)
 elif choose == "F-1":
-	ArMatrix.main(install,"")
+	ArMatrix.main(install,directory)
 elif choose == "F-2":
-	ResMatrix.main(install,"")
+	ResMatrix.main(install,directory)
 else:
-	print("Please input the write number!!!")
+	print("Please input the write index of module!!!")
 	sys.exit(0)
 
 localtime = time.asctime(time.localtime(time.time()))

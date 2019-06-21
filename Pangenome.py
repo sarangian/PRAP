@@ -2,6 +2,7 @@ import os,csv,sys
 import numpy as np
 import pandas as pd
 import matplotlib
+matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import seaborn as sns
 import random
@@ -90,10 +91,10 @@ class Distribution:
 	def distribution_picture(self,ar_distribution_dict):
 		#determine the fontsize and fonttype according to settings
 		try:
-			matplotlib.rcParams['font.sans-serif'] = self.fonttype
+			plt.rcParams['font.family'] = self.fonttype
 		except:
 			print("fonttype not found!")
-		matplotlib.rcParams['font.size'] = self.fontsize
+		plt.rcParams['font.size'] = self.fontsize
 		#x labels are number of genomes
 		ar_distri_xlable = [key for key in ar_distribution_dict.keys()]
 		#values are number of genes in the certain number of genomes
@@ -242,10 +243,10 @@ class Pangenome:
 		print("draw picture start...")
 		#determine the fontsize and fonttype according to settings
 		try:
-			matplotlib.rcParams['font.sans-serif'] = self.fonttype
+			plt.rcParams['font.family'] = self.fonttype
 		except:
 			print("fonttype not found!")
-		matplotlib.rcParams['font.size'] = self.fontsize
+		plt.rcParams['font.size'] = self.fontsize
 		#get x value and y1,y2 values from pangenome file
 		plots = fh.csv_reader(self.pangenome_file, delim="	")
 		x_value = [int(row[0]) for row in plots[1:]]

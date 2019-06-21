@@ -8,18 +8,20 @@ class ResBlastp:
 	#including software install directory, fasta files directory
 	#blast files directory, name list of cds fasta files and blast results
 	install_dir = ""
-	fasta_file_dir = ""
+	in_dir = ""
+	out_dir = ""
 	blast_dir = ""
 	fasta_files = []
 	blast_files = []
 
-	def __init__(self,install_directory,cds_directory):
+	def __init__(self,install_directory,in_directory,out_directory):
 		#get the install directory of the software
 		self.install_dir = fh.cwd_get(install_directory)
-		#get the fasta files directory
-		self.fasta_file_dir = fh.inpd_get(cds_directory,file_categories="fasta files")
-		#get all the fasta file names form cds_directory
-		self.fasta_files = fh.filename_get(self.fasta_file_dir,".faa")
+		#get the cds files directory
+		self.in_dir = fh.inpd_get(in_directory,file_categories="faa files")
+		self.out_dir = fh.inpd_get(out_directory,file_categories="ouput files")
+		#get all the cds file names form cds_directory
+		self.fasta_files = fh.filename_get(self.in_dir,".faa")
 		if len(self.fasta_files) == 0:
 			print("No fasta file was found, stop analyzing...")
 			sys.exit(0)
@@ -27,14 +29,14 @@ class ResBlastp:
 		#according to the setting modified by the user
 		self.blast_dir = fh.setting_reader(self.install_dir,"blast+")
 		#get all the blast results exist
-		self.blast_files = fh.filename_get(self.fasta_file_dir,"res_prot.xls",showext=True)
+		self.blast_files = fh.filename_get(self.out_dir,"res_prot.xls")
 
 	#delete all the blank and tab in the fasta files
 	#to avoid find wrong contigs in the later module
 	def blankdel(self):
 		for each_name in self.fasta_files:
 			content = []
-			each = self.fasta_file_dir+each_name+".faa"
+			each = self.in_dir+each_name+".faa"
 			with open(each,"r") as f:
 				content = f.read()
 			content = content.replace(" ","_")
@@ -72,9 +74,9 @@ class ResBlastp:
 			update_choose = input("update all blast results (O(one by one)/A(all)/N(no))?:").upper()
 			for each_name in self.fasta_files:
 				#get the fasta file name of the genome
-				each = self.fasta_file_dir+each_name+".faa"
+				each = self.in_dir+each_name+".faa"
 				#get the output file name of blast
-				out_name = self.fasta_file_dir+each_name+"VSres_prot.xls"
+				out_name = self.out_dir+each_name+"VSres_prot.xls"
 				#working when choose to blast one by one
 				if update_choose == "O":
 					#choose to blast or not to
@@ -95,8 +97,8 @@ class ResBlastp:
 		#blast will start from the beginning to the end
 		else:
 			for each_name in self.fasta_files:
-				each = self.fasta_file_dir+each_name+".faa"
-				out_name = self.fasta_file_dir+each_name+"VSres_prot.xls"
+				each = self.in_dir+each_name+".faa"
+				out_name = self.out_dir+each_name+"VSres_prot.xls"
 				fh.file_del(out_name)
 				os_blast(each_name,each,out_name)
 
@@ -108,27 +110,29 @@ class ParseResblastResult:
 	#name list of blast results and annotation files
 	#identity and coverage threshold while parsing blast results
 	install_dir = ""
-	blast_file_dir = ""
+	in_dir = ""
+	out_dir = ""
 	arg_dir = ""
 	blast_files = []
 	annotation_files = []
 	identity_p = 98.0
 	query_coverage_p = 0.98
 
-	def __init__(self,install_directory,blast_file_directory):
+	def __init__(self,install_directory,in_directory,out_directory):
 		#get the install directory of the software
 		self.install_dir = fh.cwd_get(install_directory)
 		#get the blast result files directory
-		self.blast_file_dir = fh.inpd_get(blast_file_directory,file_categories="blast files")
+		self.in_dir = fh.inpd_get(in_directory,file_categories="blast files")
+		self.out_dir = fh.inpd_get(out_directory,file_categories="ouput files")
 		#create the new directory to save files of re-annotated ar gene sequences
-		self.arg_dir = self.blast_file_dir+"arg/"
+		self.arg_dir = self.out_dir+"arg/"
 		fh.dir_add(self.arg_dir)
 		#add names of blast result files into a list
-		self.blast_files = fh.filename_get(self.blast_file_dir,"res_prot.xls",showext=True)
-		#get the threshold of query coverage
-		self.query_coverage_p = float(fh.setting_reader(self.install_dir,"query_coverage_p"))
+		self.blast_files = fh.filename_get(self.out_dir,"res_prot.xls",showext=True)
 		#get the threshold of identity
 		self.identity_p = float(fh.setting_reader(self.install_dir,"identity_p"))
+		#get the threshold of query coverage
+		self.query_coverage_p = float(fh.setting_reader(self.install_dir,"query_coverage_p"))
 
 	#parse all the blast result files in the list "blast_files"
 	#return annotation files for each genome in the same directory
@@ -140,12 +144,12 @@ class ParseResblastResult:
 			#get the genome name from blast file name
 			each_name = blast_file_name.split("VS")[0]
 			#create the output annotation file name
-			ar_csv = self.blast_file_dir+each_name+"_ar.csv"
+			ar_csv = self.out_dir+each_name+"_ar.csv"
 			#add the annotation file name into a list
 			self.annotation_files.append(each_name+"_ar.csv")
 			fh.file_del(ar_csv)
 			#read the blast result and store into a list
-			blast_content = fh.file_reader(self.blast_file_dir+blast_file_name)
+			blast_content = fh.file_reader(self.out_dir+blast_file_name)
 			#create the annotation file
 			f_ar = open(ar_csv,"a")
 			#write the title of annotation file
@@ -227,7 +231,7 @@ class ParseResblastResult:
 			ar_genes = {}
 			start_end = {}
 			#get the old cds file name of genome
-			old_name = self.blast_file_dir+genome_id+oldextension
+			old_name = self.in_dir+genome_id+oldextension
 			#create the new cds file name of genome
 			new_name = self.arg_dir+genome_id+"_ar"+newextension
 			f_new = open(new_name,"w")
@@ -250,7 +254,7 @@ class ParseResblastResult:
 
 			new_content = []
 			#read related csv annotation file and store arg information in a dictionary
-			plots = fh.csv_reader(self.blast_file_dir+csvfilename)
+			plots = fh.csv_reader(self.out_dir+csvfilename)
 			for row in plots:
 				ar_genes[row[0]] = " ["+row[1]+"|identity:"+row[2]+"|"+row[4]+"|"+row[5]+"]"
 			for gene in ar_genes.keys():
@@ -266,7 +270,7 @@ class ParseResblastResult:
 
 		#for each genome, invoke fuction each_write
 		fna_count = 0
-		for filename in os.listdir(self.blast_file_dir):
+		for filename in os.listdir(self.in_dir):
 			if filename.endswith(".fna"):
 				fna_count += 1
 		fna_extract = False
@@ -282,15 +286,15 @@ class ParseResblastResult:
 			print("finish writing ar sequences of "+genome_id)
 
 
-def main(install_directory,fasta_directory):
-	resblast = ResBlastp(install_directory,fasta_directory)
+def main(install_directory,in_directory,out_directory):
+	resblast = ResBlastp(install_directory,in_directory,out_directory)
 	resblast.blankdel()
 	resblast.makedb()
 	resblast.blastp()
-	pbr = ParseResblastResult(resblast.install_dir,resblast.fasta_file_dir)
+	pbr = ParseResblastResult(resblast.install_dir,resblast.in_dir,resblast.out_dir)
 	pbr.parse()
 	pbr.ar_write()
-	return resblast.fasta_file_dir
+	return resblast.out_dir
 
 if __name__ == '__main__':
-	main("","")
+	main("","","")

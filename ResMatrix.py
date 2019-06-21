@@ -3,6 +3,7 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 import matplotlib
+matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import FileHandle as fh
 from sklearn.ensemble import RandomForestClassifier
@@ -83,7 +84,7 @@ class Matrix:
 	#generate matrix file of each antibiotic in ar_phenotype.csv
 	def matrix_file(self):
 		#read the content in ar_phenotype.csv and return a list
-		pheno_plots = fh.csv_reader(self.csv_file_dir+"res_phenotype.csv")
+		pheno_plots = fh.csv_reader(self.install_dir+"/databases/res_phenotype.csv")
 		#get all the phenotypes from the list
 		self.pheno = [item for item in pheno_plots[0][1:]]
 
@@ -190,10 +191,10 @@ class Matrix:
 				value = float_value(value)
 				#determine the parameters of the picture
 				try:
-					matplotlib.rcParams['font.sans-serif'] = self.fonttype
+					plt.rcParams['font.family'] = self.fonttype
 				except:
 					print("fonttype not found!")
-				matplotlib.rcParams['font.size'] = self.fontsize
+				plt.rcParams['font.size'] = self.fontsize
 				#create the picture
 				if len(ar_gene) == 0:
 					print("No gene/allele in "+drug_name+", drawing pirture skipped...")
@@ -241,7 +242,7 @@ class Matrix:
 				try:
 					f_cont = open(self.analysis_dir+"3_"+drug_name+"_contribution.txt","w")
 					value = {}
-					with open(self.csv_file_dir+"res_phenotype.csv","r") as csvfile:
+					with open(self.install_dir+"/databases/res_phenotype.csv","r") as csvfile:
 						plots = list(csv.reader(csvfile, delimiter=","))
 						print("start analyzing gene contribution of "+drug_name+"...")
 						for row in plots[1:]:
@@ -282,7 +283,7 @@ class Matrix:
 
 def main(install_directory,csvfile_directory):
 	mat = Matrix(install_directory,csvfile_directory)
-	if os.path.exists(mat.csv_file_dir+"res_phenotype.csv"):
+	if os.path.exists(mat.install_dir+"/databases/res_phenotype.csv"):
 		mat.matrix_file()
 		if len(mat.annotation_files) == 1:
 			print("Only one genome found, drawing picture skipped...")

@@ -1,6 +1,7 @@
 import FileHandle as fh
 from Bio.Seq import Seq
 import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import time
 import os,sys
@@ -11,6 +12,7 @@ class Kmer:
 	#including software install directory, fastq files directory
 	install_dir = ""
 	fastq_file_dir = ""
+	out_dir = ""
 	kmer_dir = ""
 	fastq_files = []
 	fastq_group = {}
@@ -28,7 +30,7 @@ class Kmer:
 	drug_class = {}
 	mech_class = {}
 
-	def __init__(self,install_directory,fastq_directory):
+	def __init__(self,install_directory,fastq_directory,out_directory):
 
 		def SampleGroup(files):
 			for file in files:
@@ -50,14 +52,15 @@ class Kmer:
 		self.install_dir = fh.cwd_get(install_directory)
 		#get the fasta files directory
 		self.fastq_file_dir = fh.inpd_get(fastq_directory,file_categories="fastq files")
+		self.out_dir = fh.inpd_get(out_directory,file_categories="ouput files")
 		#get fastq files
 		self.fastq_files = fh.filename_get(self.fastq_file_dir,".fastq",showext = True)
 		if len(self.fastq_files) == 0:
 			print("No fastq file was found, stop analyzing...")
 			sys.exit(0)
-		self.kmer_dir = self.fastq_file_dir+"kmer/"
+		self.kmer_dir = self.out_dir+"kmer/"
 		fh.dir_add(self.kmer_dir)
-		self.annotation_files = fh.filename_get(self.fastq_file_dir,"_ar.csv",showext = True)
+		self.annotation_files = fh.filename_get(self.out_dir,"_ar.csv",showext = True)
 		SampleGroup(self.fastq_files)
 		#get kmer
 		self.k = int(fh.setting_reader(self.install_dir,"k_value"))
@@ -205,7 +208,7 @@ class Kmer:
 					if "@" in line:
 						marker = 1
 		try:
-			matplotlib.rcParams['font.sans-serif'] = "Times New Roman"
+			plt.rcParams['font.family'] = "Times New Roman"
 		except:
 			print("fonttype not found!")
 		for group in self.fastq_group:
@@ -308,7 +311,7 @@ class Kmer:
 					plt.close()
 			f_ar.close()
 
-			f_pred = open(self.fastq_file_dir+group+"_ar.csv","w")
+			f_pred = open(self.out_dir+group+"_ar.csv","w")
 			f_pred.write("#gene_num"+","+"gene_name"+","+"coverage"+","+"area_score"\
 				+","+"ARO_num"+","+"accession_num"+","+"ar_gene_allele"+","+"drug_class"\
 				+","+"ar_mechanism"+"\n")
@@ -322,8 +325,8 @@ class Kmer:
 			f_pred.close()
 			print("finish analyzing group %s...\n" % group)
 
-def main(install_directory,fastq_directory):
-	kmer = Kmer(install_directory,fastq_directory)
+def main(install_directory,fastq_directory,out_directory):
+	kmer = Kmer(install_directory,fastq_directory,out_directory)
 	if len(kmer.annotation_files) == len(kmer.fastq_group):
 		choose = input("kmer files exist, do you want to update them?(Y/N):").upper()
 		if choose == "Y":
@@ -334,7 +337,7 @@ def main(install_directory,fastq_directory):
 		kmer.KmerReads()
 	localtime = time.asctime(time.localtime(time.time()))
 	print("kmer end time: ",localtime)
-	return kmer.fastq_file_dir
+	return kmer.out_dir
 
 if __name__ == '__main__':
-	main("","")
+	main("","","")

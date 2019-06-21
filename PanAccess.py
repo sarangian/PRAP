@@ -3,6 +3,7 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 import matplotlib
+matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import FileHandle as fh
 	
@@ -223,10 +224,10 @@ class Pansum:
 		y_hue = []
 		#determine the fontsize and fonttype according to settings
 		try:
-			matplotlib.rcParams['font.sans-serif'] = self.fonttype
+			plt.rcParams['font.family'] = self.fonttype
 		except:
 			print("fonttype not found!")
-		matplotlib.rcParams['font.size'] = self.fontsize
+		plt.rcParams['font.size'] = self.fontsize
 		#determine the figure size according to settings
 		f,ax = plt.subplots(figsize = (self.page_length,self.page_width))
 		#determine the xticklabels and rotate the labels
@@ -281,10 +282,10 @@ class Pansum:
 		#draw clustermap
 		#set the parameters of the picture
 		try:
-			matplotlib.rcParams['font.sans-serif'] = self.fonttype1
+			plt.rcParams['font.family'] = self.fonttype1
 		except:
 			print("fonttype not found!")
-		matplotlib.rcParams['font.size'] = self.fontsize1
+		plt.rcParams['font.size'] = self.fontsize1
 		#the dataframe of the clustermap
 		df = pd.DataFrame(value,index=genome_id, columns=self.drug_class)
 		plt.subplots(figsize = (self.page_length1,self.page_width1))
@@ -312,15 +313,16 @@ class Pansum:
 			#draw correlation map
 			#set the parameters of the picture
 			try:
-				matplotlib.rcParams['font.sans-serif'] = self.fonttype2
+				plt.rcParams['font.family'] = self.fonttype2
 			except:
 				print("fonttype not found!")
-			matplotlib.rcParams['font.size'] = self.glfs2
+			plt.rcParams['font.size'] = self.glfs2
 			#draw the a blank canvas with number of n^2 subplots
 			#(n refers to the number of genomes)
 			f,axs = plt.subplots(nrows = subplots_num, ncols = subplots_num,\
 				sharex= True, sharey = True, figsize = (self.page_length2,self.page_width2))
 			f.subplots_adjust(wspace=0, hspace=0)
+			axs[0,0].invert_xaxis()
 
 			#draw the picture in each subplot
 			for i in range(subplots_num**2):
@@ -356,8 +358,6 @@ class Pansum:
 				if row_num == len(genome_id)-1:
 					axs[row_num,col_num].set_xlabel(genome_id[col_num], \
 						rotation=40, rotation_mode='anchor', ha="right", va="top")
-				if i == subplots_num**2-1:
-					ax.invert_xaxis()
 			#save the correlation map
 			print("saving figure...")
 			f.savefig(self.analysis_dir+"1_ar_corr.png", \
@@ -582,10 +582,10 @@ class AccessorySummary:
 		y_hue = []
 		#determine the fontsize and fonttype according to settings
 		try:
-			matplotlib.rcParams['font.sans-serif'] = self.fonttype
+			plt.rcParams['font.family'] = self.fonttype
 		except:
 			print("fonttype not found!")
-		matplotlib.rcParams['font.size'] = self.fontsize
+		plt.rcParams['font.size'] = self.fontsize
 		#determine the figure size according to settings
 		f,ax = plt.subplots(figsize = (self.page_length,self.page_width))
 		#determine the xticklabels and rotate the labels
@@ -640,10 +640,10 @@ class AccessorySummary:
 		#draw clustermap
 		#set the parameters of the picture
 		try:
-			matplotlib.rcParams['font.sans-serif'] = self.fonttype1
+			plt.rcParams['font.family'] = self.fonttype1
 		except:
 			print("fonttype not found!")
-		matplotlib.rcParams['font.size'] = self.fontsize1
+		plt.rcParams['font.size'] = self.fontsize1
 		#the dataframe of the clustermap
 		df = pd.DataFrame(value,index=genome_id, columns=self.drug_title)
 		plt.subplots(figsize = (self.page_length1,self.page_width1))
@@ -671,16 +671,16 @@ class AccessorySummary:
 			#draw correlation map
 			#set the parameters of the picture
 			try:
-				matplotlib.rcParams['font.sans-serif'] = self.fonttype2
+				plt.rcParams['font.family'] = self.fonttype2
 			except:
 				print("fonttype not found!")
-			matplotlib.rcParams['font.size'] = self.glfs2
+			plt.rcParams['font.size'] = self.glfs2
 			#draw the a blank canvas with number of n^2 subplots
 			#(n refers to the number of genomes)
 			f,axs = plt.subplots(nrows = subplots_num, ncols = subplots_num,\
 				sharex= True, sharey = True, figsize = (self.page_length2,self.page_width2))
 			f.subplots_adjust(wspace=0, hspace=0)
-
+			axs[0,0].invert_xaxis()
 			#draw the picture in each subplot
 			for i in range(subplots_num**2):
 				#show the progress of the process
@@ -709,14 +709,12 @@ class AccessorySummary:
 					legend = False)
 				#rotate the y labels
 				if col_num == 0:
-					axs[row_num,col_num].set_ylabel(genome_id[row_num], \
+					ax.set_ylabel(genome_id[row_num], \
 						rotation = 0, rotation_mode='anchor', ha="right", va="top")
 				#rotate the x labels
 				if row_num == len(genome_id)-1:
-					axs[row_num,col_num].set_xlabel(genome_id[col_num], \
+					ax.set_xlabel(genome_id[col_num], \
 						rotation=40, rotation_mode='anchor', ha="right", va="top")
-				if i == subplots_num**2-1:
-					ax.invert_xaxis()
 			#save the correlation map
 			print("saving figure...")
 			f.savefig(self.analysis_dir+"2_accessory_ar_corr.png", \
