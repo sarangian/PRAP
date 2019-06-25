@@ -146,17 +146,17 @@ if choose in ar_module or choose in res_module:
 elif choose == "A":
 	CDSex.main(directory)
 elif choose == "B-1":
-	ArKmer.main(install,directory)
+	ArKmer.main(install,directory,output_directory)
 elif choose == "B-2":
-	ArBlastn.main(install,directory)
+	ArBlastn.main(install,directory,output_directory)
 elif choose == "B-3":
-	ArBlastp.main(install,directory)
+	ArBlastp.main(install,directory,output_directory)
 elif choose == "C-1":
-	ResKmer.main(install,directory)
+	ResKmer.main(install,directory,output_directory)
 elif choose == "C-2":
-	ResBlastn.main(install,directory)
+	ResBlastn.main(install,directory,output_directory)
 elif choose == "C-3":
-	ResBlastp.main(install,directory)
+	ResBlastp.main(install,directory,output_directory)
 elif choose == "D":
 	Pangenome.main(install,directory)
 elif choose == "E":
