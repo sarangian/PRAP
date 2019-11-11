@@ -37,81 +37,67 @@ please change the directory of “blast+” in “settings.txt” like:
 #### GenBank annotation files (example: A.gb)
 
 ### [2]Setting files
-**The setting file in PRAP package (/PRAP/settings.txt) is used to set parameters for individual modules. **
+**The setting file in PRAP package (/PRAP/settings.txt) is used to set parameters for individual modules.**
 
 ### [3]Phenotype files
 #### “ar_phenotype.csv” or "res_phenotype.csv"
 
 ## 5.Usage
 ### [1]Run PRAP
-Get help from PRAP
-**python install_dir/PRAP.py -h**
-==================================================================
-=================Pan Resistome Analysis Pipeline==================
-==================================================================
-If you choose one of RUN ALL MODULES, 
-you don't need to RUN SEPARATE MODULE;
-If you just want to run one module,
-please see RUN SEPARATE MODULE
-------------------------------------------------------------------
-==================================================================
-RUN ALL MODULES:
-------------------------------------------------------------------
-Raw reads as input files (files with a ".fastq" extension):
-------------------------------------------------------------------
-[R1] analysis with CARD nucleotide database
-[R2] analysis with ResFinder nucleotide database
-------------------------------------------------------------------
-Genbank files as input files (files with a ".gb" extension):
-------------------------------------------------------------------
-[G1-1] analysis with CARD nucleotide database
-[G1-2] analysis with CARD protein database
-[G2-1] analysis with ResFinder nucleotide database
-[G2-2] analysis with ResFinder protein database
-------------------------------------------------------------------
-Nucleotide seq as input files (files with a ".fna" extension):
-------------------------------------------------------------------
-[N1] analysis with CARD nucleotide database
-[N2] analysis with ResFinder nucleotide database
-------------------------------------------------------------------
-Protein seq as input files (files with a ".faa" extension):
-------------------------------------------------------------------
-[P1] analysis with CARD protein database
-[P2] analysis with ResFinder protein database
-------------------------------------------------------------------
-==================================================================
 
-==================================================================
-RUN SEPARATE MODULE:
-------------------------------------------------------------------
-Preprocessing module:
-------------------------------------------------------------------
+#### A simple example:
+**python install_dir/PRAP.py -m module_name -indir input_directory -outdir output_directory**
+
+#### Raw reads as input files (files with a ".fastq" extension):
+[R1] analysis with CARD nucleotide database
+
+[R2] analysis with ResFinder nucleotide database  
+
+#### Genbank files as input files (files with a ".gb" extension):
+[G1-1] analysis with CARD nucleotide database  
+
+[G1-2] analysis with CARD protein database  
+
+[G2-1] analysis with ResFinder nucleotide database  
+
+[G2-2] analysis with ResFinder protein database  
+
+
+#### Nucleotide seq as input files (files with a ".fna" extension):
+[N1] analysis with CARD nucleotide database  
+
+[N2] analysis with ResFinder nucleotide database  
+
+
+#### Protein seq as input files (files with a ".faa" extension):
+[P1] analysis with CARD protein database  
+
+[P2] analysis with ResFinder protein database  
+
+
+#### Preprocessing module:
 [a] "CDSex.py": extract coding sequence from genbank files;
 	form both protein and nucleotide fasta files;
-------------------------------------------------------------------
-Gene identification modules:
-------------------------------------------------------------------
-Modules using CARD database------------------------------------
-[b-1] "ArKmer.py": find resistance genes from raw reads;
-[b-2] "ArBlastn.py": find resistance genes from ".fna" files;
-[b-3] "ArBlastp.py": find resistance genes from ".faa" files;
-Modules using ResFinder database-------------------------------
-[c-1] "ResKmer.py": find resistance genes from raw reads;
-[c-2] "ResBlastn.py": find resistance genes from ".fna" files;
-[c-3] "ResBlastn.py": find resistance genes from ".fna" files;
-------------------------------------------------------------------
-Analysis modules:
-Input files of Analysis modules are annotation files (files 
-with "_ar.csv" suffixes) formed by gene identification modules
-------------------------------------------------------------------
-[d] "Pangenome.py": pan-resistome analysis
-	(mainly analyze for pan-genome features)
-[e] "PanAccess.py": pan & accessory resistome analysis
-	(mainly classify and statistical analysis for ARGs)
-Module using CARD database-------------------------------------
-[f-1] "ArMatrix.py": analysis associated genes for each kind of 
-	  antibiotics in CARD database
-Module using ResFinder database--------------------------------
-[f-2] "ResMatrix.py": analysis associated ARGs for each kind of 
-	  antibiotics in ResFinder database
-==================================================================
+
+#### Gene identification modules:
+[b-1] "ArKmer.py": find resistance genes from raw reads;  
+
+[b-2] "ArBlastn.py": find resistance genes from ".fna" files;  
+
+[b-3] "ArBlastp.py": find resistance genes from ".faa" files;  
+
+[c-1] "ResKmer.py": find resistance genes from raw reads;  
+
+[c-2] "ResBlastn.py": find resistance genes from ".fna" files;  
+
+[c-3] "ResBlastn.py": find resistance genes from ".fna" files;  
+
+
+#### Analysis modules:
+[d] "Pangenome.py": pan-resistome analysis (mainly analyze for pan-genome features)  
+
+[e] "PanAccess.py": pan & accessory resistome analysis (mainly classify and statistical analysis for ARGs)  
+
+[f-1] "ArMatrix.py": analysis associated genes for each kind of antibiotics in CARD database  
+
+[f-2] "ResMatrix.py": analysis associated ARGs for each kind of antibiotics in ResFinder database
