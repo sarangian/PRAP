@@ -14,13 +14,20 @@ PRAP is a platform independent Python3 tool used to analyze pan-resistome charac
 
 ### [2] Install Python3 accessory packages:
 **For PRAP, several Python3 packages are required**
-#### Biopython v1.7+
-#### NumPy v1.15+
-#### Pandas v0.23+
-#### SciPy v1.1+
-#### Matplotlib v3.0+
-#### Seaborn v0.9
-#### Scikit-learn v0.19+
+Biopython v1.7+  
+
+NumPy v1.15+  
+
+Pandas v0.23+  
+
+SciPy v1.1+  
+
+Matplotlib v3.0+  
+
+Seaborn v0.9  
+
+Scikit-learn v0.19+  
+
 
 ### [3] Install blast v2.7.1+ for Win/Mac/Linux 
 Blast+ is available at https://blast.ncbi.nlm.nih.gov/Blast.cgi 
@@ -31,16 +38,19 @@ please change the directory of “blast+” in “settings.txt” like:
 
 ## 4.Files Preparation
 ### [1]Input files
-#### Raw reads sequence: FASTQ files (example: A.fastq)
-#### Protein sequence: FASTA amino acid files (example: A.faa)
-#### Nucleotide sequence: FASTA nucleic acid files (example: A.fna)
-#### GenBank annotation files (example: A.gb)
+Raw reads sequence: FASTQ files (example: A.fastq)  
+
+Protein sequence: FASTA amino acid files (example: A.faa)  
+
+Nucleotide sequence: FASTA nucleic acid files (example: A.fna)  
+
+GenBank annotation files (example: A.gb)  
 
 ### [2]Setting files
 **The setting file in PRAP package (/PRAP/settings.txt) is used to set parameters for individual modules.**
 
 ### [3]Phenotype files
-#### “ar_phenotype.csv” or "res_phenotype.csv"
+“ar_phenotype.csv” or "res_phenotype.csv"
 
 ## 5.Usage
 
@@ -48,12 +58,12 @@ please change the directory of “blast+” in “settings.txt” like:
 **python install_dir/PRAP.py -m module_name -indir input_directory -outdir output_directory**
 
 ### Modules are listed below, module names are the Letter-Number in "[]"
-#### Raw reads as input files (files with a ".fastq" extension):
+#### 1.Raw reads as input files (files with a ".fastq" extension):
 [R1] analysis with CARD nucleotide database
 
 [R2] analysis with ResFinder nucleotide database  
 
-#### Genbank files as input files (files with a ".gb" extension):
+#### 2.Genbank files as input files (files with a ".gb" extension):
 [G1-1] analysis with CARD nucleotide database  
 
 [G1-2] analysis with CARD protein database  
@@ -63,23 +73,23 @@ please change the directory of “blast+” in “settings.txt” like:
 [G2-2] analysis with ResFinder protein database  
 
 
-#### Nucleotide seq as input files (files with a ".fna" extension):
+#### 3.Nucleotide seq as input files (files with a ".fna" extension):
 [N1] analysis with CARD nucleotide database  
 
 [N2] analysis with ResFinder nucleotide database  
 
 
-#### Protein seq as input files (files with a ".faa" extension):
+#### 4.Protein seq as input files (files with a ".faa" extension):
 [P1] analysis with CARD protein database  
 
 [P2] analysis with ResFinder protein database  
 
 
-#### Preprocessing module:
+#### 5.Preprocessing module:
 [a] "CDSex.py": extract coding sequence from genbank files;
 	form both protein and nucleotide fasta files;
 
-#### Gene identification modules:
+#### 6.Gene identification modules:
 [b-1] "ArKmer.py": find resistance genes from raw reads;  
 
 [b-2] "ArBlastn.py": find resistance genes from ".fna" files;  
@@ -93,7 +103,7 @@ please change the directory of “blast+” in “settings.txt” like:
 [c-3] "ResBlastn.py": find resistance genes from ".fna" files;  
 
 
-#### Analysis modules:
+#### 7.Analysis modules:
 [d] "Pangenome.py": pan-resistome analysis (mainly analyze for pan-genome features)  
 
 [e] "PanAccess.py": pan & accessory resistome analysis (mainly classify and statistical analysis for ARGs)  
