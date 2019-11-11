@@ -43,11 +43,11 @@ please change the directory of “blast+” in “settings.txt” like:
 #### “ar_phenotype.csv” or "res_phenotype.csv"
 
 ## 5.Usage
-### [1]Run PRAP
 
-#### A simple example:
+### A simple example:
 **python install_dir/PRAP.py -m module_name -indir input_directory -outdir output_directory**
 
+### Modules are listed below, module names are the Letter-Number in "[]"
 #### Raw reads as input files (files with a ".fastq" extension):
 [R1] analysis with CARD nucleotide database
 
