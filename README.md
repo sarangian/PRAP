@@ -10,28 +10,32 @@ PRAP is a platform independent Python3 tool used to analyze pan-resistome charac
 4)	Analysis of ARGs associated with given antibiotics
 
 ## 3.Installation
-### [1] Install Python3 v3.6+ for Win/Mac/Linux (https://www.python.org/)
+### [1] Install Python3 v3.6+ for Win/Mac/Linux  
+Please refer to https://www.python.org/
 
 ### [2] Install Python3 accessory packages:
-**For PRAP, several Python3 packages are required**
-Biopython v1.7+  
+**For PRAP, several Python3 packages are required**  
 
-NumPy v1.15+  
+	Biopython v1.7+  
 
-Pandas v0.23+  
+	NumPy v1.15+  
 
-SciPy v1.1+  
+	Pandas v0.23+  
 
-Matplotlib v3.0+  
+	SciPy v1.1+  
 
-Seaborn v0.9  
+	Matplotlib v3.0+  
 
-Scikit-learn v0.19+  
+	Seaborn v0.9  
+
+	Scikit-learn v0.19+  
 
 
 ### [3] Install blast v2.7.1+ for Win/Mac/Linux 
-Blast+ is available at https://blast.ncbi.nlm.nih.gov/Blast.cgi 
-**you need to modify the directory of where you install blast** 
+Blast+ is available at https://blast.ncbi.nlm.nih.gov/Blast.cgi  
+
+**you need to modify the directory of where you install blast**  
+
 For example, if the blastn programs are in C:/blast+/bin 
 please change the directory of “blast+” in “settings.txt” like: 
 [blast+=C:/blast+/bin/] #please use “/” to separate the directory 
@@ -59,55 +63,55 @@ GenBank annotation files (example: A.gb)
 
 ### Modules are listed below, module names are the Letter-Number in "[]"
 #### 1.Raw reads as input files (files with a ".fastq" extension):
-[R1] analysis with CARD nucleotide database
+	[R1] analysis with CARD nucleotide database
 
-[R2] analysis with ResFinder nucleotide database  
+	[R2] analysis with ResFinder nucleotide database  
 
 #### 2.Genbank files as input files (files with a ".gb" extension):
-[G1-1] analysis with CARD nucleotide database  
+	[G1-1] analysis with CARD nucleotide database  
 
-[G1-2] analysis with CARD protein database  
+	[G1-2] analysis with CARD protein database  
 
-[G2-1] analysis with ResFinder nucleotide database  
+	[G2-1] analysis with ResFinder nucleotide database  
 
-[G2-2] analysis with ResFinder protein database  
+	[G2-2] analysis with ResFinder protein database  
 
 
 #### 3.Nucleotide seq as input files (files with a ".fna" extension):
-[N1] analysis with CARD nucleotide database  
+	[N1] analysis with CARD nucleotide database  
 
-[N2] analysis with ResFinder nucleotide database  
+	[N2] analysis with ResFinder nucleotide database  
 
 
 #### 4.Protein seq as input files (files with a ".faa" extension):
-[P1] analysis with CARD protein database  
+	[P1] analysis with CARD protein database  
 
-[P2] analysis with ResFinder protein database  
+	[P2] analysis with ResFinder protein database  
 
 
 #### 5.Preprocessing module:
-[a] "CDSex.py": extract coding sequence from genbank files;
+	[a] "CDSex.py": extract coding sequence from genbank files;
 	form both protein and nucleotide fasta files;
 
 #### 6.Gene identification modules:
-[b-1] "ArKmer.py": find resistance genes from raw reads;  
+	[b-1] "ArKmer.py": find resistance genes from raw reads;  
 
-[b-2] "ArBlastn.py": find resistance genes from ".fna" files;  
+	[b-2] "ArBlastn.py": find resistance genes from ".fna" files;  
 
-[b-3] "ArBlastp.py": find resistance genes from ".faa" files;  
+	[b-3] "ArBlastp.py": find resistance genes from ".faa" files;  
 
-[c-1] "ResKmer.py": find resistance genes from raw reads;  
+	[c-1] "ResKmer.py": find resistance genes from raw reads;  
 
-[c-2] "ResBlastn.py": find resistance genes from ".fna" files;  
+	[c-2] "ResBlastn.py": find resistance genes from ".fna" files;  
 
-[c-3] "ResBlastn.py": find resistance genes from ".fna" files;  
+	[c-3] "ResBlastn.py": find resistance genes from ".fna" files;  
 
 
 #### 7.Analysis modules:
-[d] "Pangenome.py": pan-resistome analysis (mainly analyze for pan-genome features)  
+	[d] "Pangenome.py": pan-resistome analysis (mainly analyze for pan-genome features)  
 
-[e] "PanAccess.py": pan & accessory resistome analysis (mainly classify and statistical analysis for ARGs)  
+	[e] "PanAccess.py": pan & accessory resistome analysis (mainly classify and statistical analysis for ARGs)  
 
-[f-1] "ArMatrix.py": analysis associated genes for each kind of antibiotics in CARD database  
+	[f-1] "ArMatrix.py": analysis associated genes for each kind of antibiotics in CARD database  
 
-[f-2] "ResMatrix.py": analysis associated ARGs for each kind of antibiotics in ResFinder database
+	[f-2] "ResMatrix.py": analysis associated ARGs for each kind of antibiotics in ResFinder database
