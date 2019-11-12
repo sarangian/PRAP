@@ -4,7 +4,7 @@
 Settings for gene identification modules:
 ----------------------------------------------------------------------------------
 #please use "/" to seperate the directory! eg:/usr/bin
-[blast+=/Users/apple/Downloads/ncbi-blast-2.8.1+/bin]
+[blast+=/usr/bin]
 #blast directory contain blastn, blastp and makeblastdb
 [identity_n=70]
 [query_coverage_n=0.70]
