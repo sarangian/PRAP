@@ -42,18 +42,18 @@ please change the directory of “blast+” in “settings.txt” like:
 
 ## 4.Files Preparation
 ### [1]Input files
-Raw reads sequence: FASTQ files (example: A.fastq)  
+	Raw reads sequence: FASTQ files (example: A.fastq)  
 
-Protein sequence: FASTA amino acid files (example: A.faa)  
+	Protein sequence: FASTA amino acid files (example: A.faa)  
 
-Nucleotide sequence: FASTA nucleic acid files (example: A.fna)  
+	Nucleotide sequence: FASTA nucleic acid files (example: A.fna)  
 
-GenBank annotation files (example: A.gb)  
+	GenBank annotation files (example: A.gb)  
 
 ### [2]Setting files
 **The setting file in PRAP package (/PRAP/settings.txt) is used to set parameters for individual modules.**
 
-### [3]Phenotype files
+### [3]Phenotype files (optinal)
 “ar_phenotype.csv” or "res_phenotype.csv"
 
 ## 5.Usage
@@ -61,13 +61,13 @@ GenBank annotation files (example: A.gb)
 ### A simple example:
 **python install_dir/PRAP.py -m module_name -indir input_directory -outdir output_directory**
 
-### Modules are listed below, module names are the Letter-Number in "[]"
-#### 1.Raw reads as input files (files with a ".fastq" extension):
+### Modules are listed below, module names are the Letter-Number in "[  ]"
+#### 1)	Raw reads as input files (files with a ".fastq" extension):
 	[R1] analysis with CARD nucleotide database
 
 	[R2] analysis with ResFinder nucleotide database  
 
-#### 2.Genbank files as input files (files with a ".gb" extension):
+#### 2)	Genbank files as input files (files with a ".gb" extension):
 	[G1-1] analysis with CARD nucleotide database  
 
 	[G1-2] analysis with CARD protein database  
@@ -77,23 +77,23 @@ GenBank annotation files (example: A.gb)
 	[G2-2] analysis with ResFinder protein database  
 
 
-#### 3.Nucleotide seq as input files (files with a ".fna" extension):
+#### 3)	Nucleotide seq as input files (files with a ".fna" extension):
 	[N1] analysis with CARD nucleotide database  
 
 	[N2] analysis with ResFinder nucleotide database  
 
 
-#### 4.Protein seq as input files (files with a ".faa" extension):
+#### 4)	Protein seq as input files (files with a ".faa" extension):
 	[P1] analysis with CARD protein database  
 
 	[P2] analysis with ResFinder protein database  
 
 
-#### 5.Preprocessing module:
+#### 5)	Preprocessing module:
 	[a] "CDSex.py": extract coding sequence from genbank files;
 	form both protein and nucleotide fasta files;
 
-#### 6.Gene identification modules:
+#### 6)	Gene identification modules:
 	[b-1] "ArKmer.py": find resistance genes from raw reads;  
 
 	[b-2] "ArBlastn.py": find resistance genes from ".fna" files;  
@@ -107,7 +107,7 @@ GenBank annotation files (example: A.gb)
 	[c-3] "ResBlastn.py": find resistance genes from ".fna" files;  
 
 
-#### 7.Analysis modules:
+#### 7)	Analysis modules:
 	[d] "Pangenome.py": pan-resistome analysis (mainly analyze for pan-genome features)  
 
 	[e] "PanAccess.py": pan & accessory resistome analysis (mainly classify and statistical analysis for ARGs)  
