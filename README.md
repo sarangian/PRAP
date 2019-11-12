@@ -114,4 +114,6 @@ please change the directory of “blast+” in “settings.txt” like:
 
 	[f-1] "ArMatrix.py": analysis associated genes for each kind of antibiotics in CARD database  
 
-	[f-2] "ResMatrix.py": analysis associated ARGs for each kind of antibiotics in ResFinder database
+	[f-2] "ResMatrix.py": analysis associated ARGs for each kind of antibiotics in ResFinder database 
+
+## For detailed usage of PRAP, please refer to the Users Manuual
