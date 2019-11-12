@@ -12,14 +12,25 @@ install = (os.getcwd()+"/").replace("\\","/")
 file = ""
 choose = ""
 directory = ""
+output_directory = ""
+
+def GetParams(string,list):
+	i = list.index(string)
+	return list[i+1]
 
 cmds = sys.argv
 try:
-	if cmds[1] == "-m" and cmds[3] == "-indir" and cmds[5] == "-outdir":
-		choose = cmds[2].upper()
-		directory = cmds[4]
-		output_directory = cmds[6]
-	elif cmds[1] == "-h":
+	if "-h" not in cmds:
+		choose = GetParams("-m",cmds).upper()
+		directory = GetParams("-indir",cmds)
+		output_directory = GetParams("-outdir",cmds)
+		print("Your choose:",choose)
+		print("Input directory:",directory)
+		print("Output directory:",output_directory)
+		if not os.path.exists(output_directory):
+			os.mkdir(output_directory)
+			
+	elif "-h" in cmds:
 		print(
 """
 ==================================================================
@@ -98,7 +109,7 @@ RUN SEPARATE MODULE:
 		print("Error: please use 'python PRAP.py -m modules -indir input_directory -outdir output_directory' ")
 		sys.exit(0)
 except:
-	print("Error: please use 'python PRAP.py -m modules -dir input_directory -outdir output_directory' ")
+	print("Error: please use 'python PRAP.py -m modules -indir input_directory -outdir output_directory' ")
 	sys.exit(0)
 
 ar_module = ["R1","G1-1","G1-2","N1","P1"]

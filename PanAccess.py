@@ -344,12 +344,21 @@ class Pansum:
 						else:
 							color_index.append("x=y")
 				#draw the scatterplot map
-				sns.scatterplot(x = value[col_num], y = value[row_num], \
-					hue = color_index, style = color_index, \
-					s= int(self.dotsize), \
-					ax = ax, \
-					hue_order = ["x=y","x>y","x<y"], style_order = ["x>y","x=y","x<y"], \
-					legend = False)
+				if row_num == 0 and col_num == len(genome_id)-1:
+						sns.scatterplot(x = value[col_num], y = value[row_num], \
+						hue = color_index, style = color_index, \
+						s= int(self.dotsize), \
+						ax = ax, \
+						hue_order = ["x=y","x>y","x<y"], style_order = ["x>y","x=y","x<y"])
+						h, l = ax.get_legend_handles_labels()
+						ax.legend(h,l,loc="best",bbox_to_anchor=(1.2,0.5))
+				else:
+					sns.scatterplot(x = value[col_num], y = value[row_num], \
+						hue = color_index, style = color_index, \
+						s= int(self.dotsize), \
+						ax = ax, \
+						hue_order = ["x=y","x>y","x<y"], style_order = ["x>y","x=y","x<y"], \
+						legend = False)
 				#rotate the y labels
 				if col_num == 0:
 					axs[row_num,col_num].set_ylabel(genome_id[row_num], \
@@ -701,12 +710,21 @@ class AccessorySummary:
 						else:
 							color_index.append("x=y")
 				#draw the scatterplot map
-				sns.scatterplot(x = value[col_num], y = value[row_num], \
-					hue = color_index, style = color_index, \
-					s= int(self.dotsize), \
-					ax = ax, \
-					hue_order = ["x=y","x>y","x<y"], style_order = ["x>y","x=y","x<y"], \
-					legend = False)
+				if row_num == 0 and col_num == len(genome_id)-1:
+						sns.scatterplot(x = value[col_num], y = value[row_num], \
+						hue = color_index, style = color_index, \
+						s= int(self.dotsize), \
+						ax = ax, \
+						hue_order = ["x=y","x>y","x<y"], style_order = ["x>y","x=y","x<y"])
+						h, l = ax.get_legend_handles_labels()
+						ax.legend(h,l,loc="best",bbox_to_anchor=(1.2,0.5))
+				else:
+					sns.scatterplot(x = value[col_num], y = value[row_num], \
+						hue = color_index, style = color_index, \
+						s= int(self.dotsize), \
+						ax = ax, \
+						hue_order = ["x=y","x>y","x<y"], style_order = ["x>y","x=y","x<y"], \
+						legend = False)
 				#rotate the y labels
 				if col_num == 0:
 					ax.set_ylabel(genome_id[row_num], \

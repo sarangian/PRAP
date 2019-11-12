@@ -207,7 +207,7 @@ class Pangenome:
 			f_pangenome.write("Genome_Number"+"	"+"Pan_Genome_Size"+"	"+"Core_Genome_Size\n")
 			#calculate the pan and core genome size under each number of combination
 			for i in range(1,len(self.annotation_files)+1):
-				print("calculating combiantions in C("+str(len(self.annotation_files))+","+str(i)+")...")
+				print("calculating combinations in C("+str(len(self.annotation_files))+","+str(i)+")...")
 				#get the list of possible combinations
 				combinations = Combinations(self.annotation_files,i)
 				for combination in combinations:
